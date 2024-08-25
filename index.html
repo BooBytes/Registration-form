@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        .form-container {
+            width: 300px;
+            margin: 0 auto;
+            background-color: rgb(184, 241, 146);
+            padding: 20px;
+            border: black solid 1px;
+            margin-top: 150px;
+
+        }
+
+        .form-group {
+           margin: 5px;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.875em;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+       
+        #name{
+           border-radius: 5px;
+           border: none;
+           padding: 5px;
+        }
+        #email{
+           border-radius: 5px;
+           border: none;
+           padding: 5px;
+        }
+        #password{
+           border-radius: 5px;
+           border: none;
+           padding: 5px;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>Registration Form</h1>
+        <form id="registrationForm">
+            <table>
+                <div class="form-group">
+                    <div id="nameError" class="error"></div>
+                    <label for="name">Name:</label>
+                </div>
+                <input type="text" id="name" placeholder="Enter your name">
+
+
+                <div class="form-group">
+                    <div id="emailError" class="error"></div>
+                    <label for="email">Email:</label>
+                </div>
+                <input type="email" id="email" placeholder="Enter your email">
+
+
+                <div class="form-group">
+                    <div id="passwordError" class="error"></div>
+                    <label for="password">Password:</label>
+                </div>
+                <input type="password" id="password" placeholder="Enter your password">
+
+
+                <button type="submit">Register</button>
+        </form>
+        </table>
+    </div>
+
+    <script>
+        // Function to validate the Name field
+        function validateName() {
+            const name = document.getElementById('name').value.trim();
+            const nameError = document.getElementById('nameError');
+            if (name === '') {
+                nameError.textContent = 'Name cannot be empty.';
+                return false;
+            } else {
+                nameError.textContent = '';
+                return true;
+            }
+        }
+
+        // Function to validate the Email field
+        function validateEmail() {
+            const email = document.getElementById('email').value.trim();
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                return false;
+            } else {
+                emailError.textContent = '';
+                return true;
+            }
+        }
+
+        // Function to validate the Password field
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const passwordError = document.getElementById('passwordError');
+            if (password.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters long.';
+                return false;
+            } else {
+                passwordError.textContent = '';
+                return true;
+            }
+        }
+
+        // Event listeners for real-time validation
+        document.getElementById('name').addEventListener('input', validateName);
+        document.getElementById('email').addEventListener('input', validateEmail);
+        document.getElementById('password').addEventListener('input', validatePassword);
+
+        // Form submit event listener
+        document.getElementById('registrationForm').addEventListener('submit', function (event) {
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+
+            if (!isNameValid || !isEmailValid || !isPasswordValid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+    </script>
+</body>
+
+</html>
